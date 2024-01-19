@@ -1,16 +1,20 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
+//Creating schema for notes of user of ibook
 const NoteSchema = new Schema({
-    Title:{
+    user:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"user"
+    },
+    title:{
+        type:String
+    },
+    description:{
         type:String,
         required:true
     },
-    Description:{
-        type:String,
-        required:true
-    },
-    Tag:{
+    tag:{
         type:String,
         default:"general"
     },
@@ -18,6 +22,6 @@ const NoteSchema = new Schema({
         type:Date,
         default:Date.now 
     },
-})
+},{collection : 'User_Notes'})
 
-export default mongoose.model("note",NoteSchema);
+module.exports = mongoose.model("note",NoteSchema);

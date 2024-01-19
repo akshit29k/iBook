@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const secretKey = "monstermodel";
 
+//It is a middleware run before the api call if we specify it in the middle of api method
+//This method is for authentication of user using jwt token if the token is correct in the request header then it will provide you with user details other then error  
 const fetchUser= async (req,res,next) => {
     const token = req.header("auth-content");
     if(!token){
