@@ -1,24 +1,30 @@
 
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import { context } from '../context/NoteContext'
 
 
 
 export default function NoteItem() {
     const noteContext = useContext(context);
-
+    const refClose = useRef(null);
     // Updating Element
-    const[note,setNote] = useState({title:"",description:""})
+    const[note,setNote] = useState({id:"",title:"",description:""})
     const handleOnClick =()=>{
-        noteContext.updateNote(note.title,note.description)
-    }
-    const handleOnChange=(e)=>{
-        setNote({...note,[e.target.name]:e.target.value})
+        let titleId = document.getElementById("exampleModalScrollableTitle");
+        let descId = document.getElementById("description");
+        let title = titleId.innerText;
+        let description = descId.innerText;
+        setNote({title:title,description:description});
+        noteContext.updateNote(note.id,title,description)
+        refClose.current.click();
     }
     //Clicked Note
     const handleUpdateClick = (cNote)=>{
-       setNote(cNote);
+       setNote({id:cNote._id,title:cNote.title,description:cNote.description});
     }
+    useEffect(()=>{
+        noteContext.fetchAllNotes();
+    },[note])
 return (
     <>
     <h3 style={{color:"white",textAlign:"center"}}>Your Notes</h3>
@@ -48,17 +54,17 @@ return (
   <div className="modal-dialog modal-dialog-scrollable" role="document">
     <div className="modal-content">
       <div className="modal-header">
-        <h5 suppressContentEditableWarning="true"  contentEditable="true" style={{outline:"none"}} onChange={handleOnChange} name="title" className="modal-title" id="exampleModalScrollableTitle" >{note.title}</h5>
+        <h5 suppressContentEditableWarning="true"  contentEditable="true" style={{outline:"none"}}  className="modal-title" id="exampleModalScrollableTitle" >{note.title}</h5>
         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div suppressContentEditableWarning="true" contentEditable="true" style={{outline:"none"}} onChange={handleOnChange} className="modal-body" >
+      <div suppressContentEditableWarning="true"  contentEditable="true" style={{outline:"none"}} id="description" className="modal-body" >
       {note.description}
       </div>
       <div className="modal-footer">
-        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" onClick={handleOnClick} className="btn btn-primary">Update Note</button>
+        <button type="button" ref={refClose} className="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" onClick={handleOnClick} className="btn btn-secondary">Update Note</button>
       </div>
     </div>
   </div>

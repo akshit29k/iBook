@@ -4,9 +4,9 @@ import { context } from '../context/NoteContext'
 
 export default function AddNote() {
     const noteContext = useContext(context);
-    const[note,setNote] = useState({title:"",description:"",id:"1"})
+    const[note,setNote] = useState({title:"",description:""})
     const handleOnClick =()=>{
-        noteContext.addNote(note.id,note.title,note.description)
+        noteContext.addNote(note.title,note.description)
     }
     const handleOnChange=(e)=>{
         setNote({...note,[e.target.name]:e.target.value})

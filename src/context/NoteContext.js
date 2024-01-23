@@ -3,59 +3,64 @@ import { createContext, useState } from "react";
 const contextCreated = createContext();
 
 const NoteContext = (props)=>{
-    const note =[ {
-        _id: "65aa19af4c475",
-        user: "65a91844ff4044fcc97f25eb",
-        title: "Movie",
-        description: "Thor-Ragnarok",
-        tag: "general",
-        Date: "2024-01-19T06:05:49.216Z",
-      },{
-        _id: "6a11389af4c475535b9",
-        user: "65a91844ff4044fcc97f25eb",
-        title: "Movie",
-        description: "Thor-Ragnarok",
-        tag: "general",
-        Date: "2024-01-19T06:05:49.216Z",
-      },{
-        _id: "65aa113dc9af4c4759",
-        user: "65a91844ff4044fcc97f25eb",
-        title: "Movie",
-        description: "Thor-Ragnarok",
-        tag: "general",
-        Date: "2024-01-19T06:05:49.216Z",
-      }
-      ,{
-        _id: "65aa189af4c4535b9",
-        user: "65a91844ff4044fcc97f25eb",
-        title: "Movie",
-        description: "Thor-Ragnarok",
-        tag: "general",
-        Date: "2024-01-19T06:05:49.216Z",
-      }
-    ]
+    //Common Host
+    const host = "http://localhost:5000/api/note"
+    //Empty note state array which gets data when fetch all notes run
+    const [notearr,setNotearr] = useState([]);
 
-    const [notearr,setNotearr] = useState(note);
+    //FetchAllNotes
+    const fetchAllNotes = async ()=>{
+    const response = await fetch(`${host}/fetchallnotes`, {
+        method: "GET", 
+        headers: {
+          "Content-Type": "application/json",
+          "auth-content": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJJRCI6IjY1YTkxODQ0ZmY0MDQ0ZmNjOTdmMjVlYiJ9LCJpYXQiOjE3MDU1OTE3NzZ9.7-L4YyEvUdifvQTH3gouFQnECOEJsxxHQ3zk5yU2nw0"
+        }
+      });
+      const json = await response.json();
+      setNotearr(json)
+    }
+
 
     //AddNote
-    const addNote = (id,title,description)=>{
-        const newNote ={
-        _id: id,
-        user: "65a91844ff4044fcc97f25eb",
-        title: title,
-        description: description,
-        tag: "general",
-        Date: "2024-01-19T06:05:49.216Z"
-        }
+    const addNote = async (title,description)=>{
+        const response = await fetch(`${host}/createnote`, {
+            method: "POST", 
+            headers: {
+              "Content-Type": "application/json",
+              "auth-content": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJJRCI6IjY1YTkxODQ0ZmY0MDQ0ZmNjOTdmMjVlYiJ9LCJpYXQiOjE3MDU1OTE3NzZ9.7-L4YyEvUdifvQTH3gouFQnECOEJsxxHQ3zk5yU2nw0"
+            },
+            body:JSON.stringify({title,description})
+            
+          });
+
+          const newNote = await response.json();
+          console.log(newNote)
         setNotearr([...notearr,newNote]);
     }
+
+
     //UpdateNote
-    const updateNote = (title,description)=>{
-        console.log(title+" "+description)
-        
+    const updateNote = async (id,title,description)=>{
+        const response = await fetch(`${host}/updatenote/${id}`, {
+            method: "PUT", 
+            headers: {
+              "Content-Type": "application/json",
+              "auth-content": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJJRCI6IjY1YTkxODQ0ZmY0MDQ0ZmNjOTdmMjVlYiJ9LCJpYXQiOjE3MDU1OTE3NzZ9.7-L4YyEvUdifvQTH3gouFQnECOEJsxxHQ3zk5yU2nw0"
+            },
+            body:JSON.stringify({title,description})
+            
+          });
     }
     //DeleteNote
-    const deleteNote = (id)=>{
+    const deleteNote = async (id)=>{
+        const response = await fetch(`${host}/deletenote/${id}`, {
+            method: "DELETE", 
+            headers: {
+              "Content-Type": "application/json",
+              "auth-content": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJJRCI6IjY1YTkxODQ0ZmY0MDQ0ZmNjOTdmMjVlYiJ9LCJpYXQiOjE3MDU1OTE3NzZ9.7-L4YyEvUdifvQTH3gouFQnECOEJsxxHQ3zk5yU2nw0"
+            }
+          });
         let newNote = [];
          notearr.forEach(element => {
             if(element._id === id){
@@ -67,7 +72,7 @@ const NoteContext = (props)=>{
     }
 return(
 
-    <context.Provider value={{notearr,addNote,updateNote,deleteNote}}>
+    <context.Provider value={{notearr,addNote,updateNote,deleteNote,fetchAllNotes}}>
         {props.children}
     </context.Provider>
 )

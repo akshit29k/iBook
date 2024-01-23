@@ -1,11 +1,12 @@
 const connectToMongo = require('./db')
 const express = require('express');
-
+const cors = require('cors')
 
 //Establish connection 
 connectToMongo();
 //Intializing Server on Port 5000  
 const app = express();
+app.use(cors())
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`)); 
 
