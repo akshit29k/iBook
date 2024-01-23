@@ -5,8 +5,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const fetchuser = require('../middleware/fetchUser');
 const {check,body,validationResult} = require('express-validator');
-
-const secretKey = "monstermodel"; 
+require("dotenv").config();
+const secretKey = process.env.SALT_KEY; 
 
 
 //Route 1 : Creating user /api/auth/createuser - no auth required

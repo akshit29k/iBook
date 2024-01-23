@@ -64,7 +64,7 @@ route.put("/updatenote/:id",fetchuser,async (req,res)=>{
     }
 })
 
-//Route 3 : Deleting note of user using id /api/auth/deletenote/id - Auth required
+//Route 4 : Deleting note of user using id -- /api/auth/deletenote/id - Auth required
 route.delete("/deletenote/:id",fetchuser,async (req,res)=>{
     try{
         //Fetching note from note id if existed if not sending not found

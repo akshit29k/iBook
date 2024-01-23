@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
-const secretKey = "monstermodel";
+require("dotenv").config();
+const secretKey = process.env.SALT_KEY; 
 
 //It is a middleware run before the api call if we specify it in the middle of api method
 //This method is for authentication of user using jwt token if the token is correct in the request header then it will provide you with user details other then error  
