@@ -16,32 +16,42 @@ export default function NoteItem() {
         let description = descId.innerText;
         setNote({title:title,description:description});
         noteContext.updateNote(note.id,title,description)
+        //Clicking on updated button automatically click close button using ref
         refClose.current.click();
+    }
+    //Deleting Element
+    const handleDeleteClick=(id)=>{
+        noteContext.deleteNote(id);
     }
     //Clicked Note
     const handleUpdateClick = (cNote)=>{
        setNote({id:cNote._id,title:cNote.title,description:cNote.description});
     }
+    //Fetching all notes and displaying it and rendering again when note gets updated
     useEffect(()=>{
         noteContext.fetchAllNotes();
     },[note])
 return (
     <>
+    {/* Fetched Data gets displayed by below code */}
     <h3 style={{color:"white",textAlign:"center"}}>Your Notes</h3>
     <div className="row">
+      <div className='container' style={{color:"white",fontSize:"larger",textAlign:"center"}}>
+      {noteContext.notearr.length===0 && "No data"}
+      </div>
     {
         noteContext.notearr.map((ele)=>
-        <div className="col-md-4 my-2" key={ele._id} >
+        <div className="col-md-4 my-2" key={ele._id}>
         <div className="card" style={{height:"150px",overflow:"hidden"}}>
         <div className="card-body">
             <div style={{display:"flex"}}>
-          <h5 className="card-title">{ele.title}</h5>
+          <h5 className="card-title">{(ele.title.length)<17? ele.title: ele.title.slice(0,17)+"..."}</h5>
           <div style={{marginLeft:"auto"}}>
-          <i className="fa-solid fa-trash" onClick={()=>{noteContext.deleteNote(ele._id)}}  style={{color: "#990f1d",padding:"5px",cursor:"pointer"}}></i>
           <i className="fa-solid fa-book-open" onClick={()=>{handleUpdateClick(ele)}} data-toggle="modal" data-target="#exampleModalScrollable" style={{color: "#21735a",padding:"5px",cursor:"pointer"}}></i>
+          <i className="fa-solid fa-trash" onClick={()=>{handleDeleteClick(ele._id)}}  style={{color: "#990f1d",padding:"5px",cursor:"pointer"}}></i>
           </div>
           </div>
-          <p className="card-text">{ele.description}</p>
+          <p className="card-text">{(ele.description.length)<85? ele.description: ele.description.slice(0,85)+"..."}</p>
         </div>
       </div>
       </div>
@@ -53,11 +63,11 @@ return (
         <div className="modal fade"  id="exampleModalScrollable" tabIndex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
   <div className="modal-dialog modal-dialog-scrollable" role="document">
     <div className="modal-content">
-      <div className="modal-header">
+      <div style={{padding:"15px 15px 0px 18px"}}>
         <h5 suppressContentEditableWarning="true"  contentEditable="true" style={{outline:"none"}}  className="modal-title" id="exampleModalScrollableTitle" >{note.title}</h5>
-        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+        {/* <button type="button"  data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-        </button>
+        </button> */}
       </div>
       <div suppressContentEditableWarning="true"  contentEditable="true" style={{outline:"none"}} id="description" className="modal-body" >
       {note.description}

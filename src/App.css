@@ -43,5 +43,115 @@ body{
 
 
 
+/* Login-Signup */
+/* .form-structor {
+	background-color: #222;
+	border-radius: 15px;
+	height: 550px;
+	width: 350px;
+	overflow: hidden;
+} */
 
 
+/* Login */
+/* 
+.center {
+  position: absolute;
+  top: calc(50% - 10%);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 65%;
+  z-index: 5;
+  transition: all .3s ease;
+}
+.form-title {
+  color: #000;
+  font-size: 1.7em;
+  text-align: center;
+}
+.form-holder {
+  border-radius: 15px;
+  background-color: #fff;
+  border: 1px solid #eee;
+  overflow: hidden;
+  margin-top: 50px;
+  opacity: 1;
+  visibility: visible;
+}
+
+
+.submit-btn {
+  background-color: #6B92A4;
+  color: rgba(256,256,256,0.7);
+  border:0;
+  border-radius: 15px;
+  display: block;
+  margin: 15px auto; 
+  padding: 15px 45px;
+  width: 100%;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 1;
+  visibility: visible;
+}
+.submit-btn:hover {
+  transition: all .3s ease;
+  background-color: rgba(0,0,0,0.8);
+} */
+
+.structure{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-color: white;
+  width: 30%;
+  height: 75%;
+  border-radius: 15px;
+}
+.form-title {
+  color: #000;
+  font-size: 1.7em;
+  text-align: center;
+}
+.input {
+  border: .5px solid rgba(0, 0, 0, 0.477);
+  border-radius: 5px;
+  outline: none;
+  box-shadow: none;
+  height: 30px;
+  padding: 10px;
+  margin:10px;
+  border-bottom: 1px solid #100505;
+  font-size: 12px;
+  text-align: center;
+  width: 100%;
+}
+.login-box{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+.submit-btn {
+  background-color: #ffffff;
+  color: black;
+  border:.5px solid rgba(0, 0, 0, 0.477);
+  border-radius: 15px;
+  padding: 10px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 1;
+  width: 100px;
+}
+.submit-btn:hover {
+  transition: all .3s ease;
+  background-color: rgba(0,0,0,0.8);
+  color:white;
+}
+.input:focus{
+border: 1px solid rgba(0, 0, 0, 0.152);
+border-radius: 5px;
+}

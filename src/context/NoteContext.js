@@ -61,14 +61,9 @@ const NoteContext = (props)=>{
               "auth-content": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJJRCI6IjY1YTkxODQ0ZmY0MDQ0ZmNjOTdmMjVlYiJ9LCJpYXQiOjE3MDU1OTE3NzZ9.7-L4YyEvUdifvQTH3gouFQnECOEJsxxHQ3zk5yU2nw0"
             }
           });
-        let newNote = [];
-         notearr.forEach(element => {
-            if(element._id === id){
-                return;
-            }
-            newNote.push(element);
+         const newNote = notearr.filter((note)=>{return note._id!==id});
             setNotearr(newNote);
-        });
+        
     }
 return(
 

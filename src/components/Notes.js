@@ -6,8 +6,8 @@ export default function Notes() {
   return (
     <>
     <div className='container my-4 col-8'>
-        <AddNote/>
-      <NoteItem/>
+    <AddNote/>
+    <NoteItem/>
     </div>
     </>
   )

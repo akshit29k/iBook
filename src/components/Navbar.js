@@ -14,16 +14,15 @@ export default function Navbar() {
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
         <li className="nav-item">
-          <Link className="nav-link active text-white h2" aria-current="page" to="/">Home</Link>
+          <Link className="nav-link text-white h2" aria-current="page" to="/">Home</Link>
         </li>
         <li className="nav-item">
           <Link className="nav-link text-white h2" to="/about">About</Link>
         </li>
       </ul>
-      {/* <form className="d-flex" role="search">
-        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button className="btn btn-outline-secondary" type="submit">Search</button>
-      </form> */}
+      <form className="d-flex" role="search">
+        <Link className="btn btn-outline-light  border-white" to="/login-signup" >Login/Signup</Link>
+      </form>
     </div>
   </div>
 </nav>
