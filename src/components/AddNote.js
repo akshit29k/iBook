@@ -1,19 +1,27 @@
 import React, { useContext, useState } from 'react'
 import { context } from '../context/NoteContext'
+import { alertContext } from '../context/AlertContext'
 
 
 export default function AddNote() {
+  const alertCon = useContext(alertContext);
+    const {showAlert} = alertCon;
     const noteContext = useContext(context);
     const[note,setNote] = useState({title:"",description:""})
     const handleOnClick =()=>{
+      if(!localStorage.getItem('token')){
+        showAlert("Login to continue","danger");
+      }else{
         noteContext.addNote(note.title,note.description)
         setNote({title:"",description:""})
+      }
     }
     const handleOnChange=(e)=>{
         setNote({...note,[e.target.name]:e.target.value})
     }
   return (
    <>
+   
    {/* Form for adding note */}
       <div className="form-floating mb-3">
   <input type="text" className="form-control" name="title" value={note.title} onChange={handleOnChange}  id="floatingInput" placeholder="Any title" />

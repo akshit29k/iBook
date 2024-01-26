@@ -10,10 +10,12 @@ import {
 import NoteContext from './context/NoteContext';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import AlertContext from './context/AlertContext';
 
 function App() {
   return (
     <>
+    <AlertContext>
     <NoteContext>
     <Router>
     <Navbar/>
@@ -25,6 +27,7 @@ function App() {
     </Routes>
     </Router>
     </NoteContext>
+    </AlertContext>
     </>
   );
 }

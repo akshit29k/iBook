@@ -12,7 +12,7 @@ route.post(("/createnote"),fetchuser,[
 ],async (req,res)=>{
     const errors = validationResult(req);
     if(!errors.isEmpty()){
-        return res.status(400).send(errors);
+        return res.status(400).send({error:"Invalid Token"});
     }
     try{
         const note = await Note.create({
@@ -23,7 +23,7 @@ route.post(("/createnote"),fetchuser,[
         }) 
         res.send(note);
     }catch(error){
-        res.send(error);
+        res.send({error:error});
     }
 })
 

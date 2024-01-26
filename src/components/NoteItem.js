@@ -29,7 +29,10 @@ export default function NoteItem() {
     }
     //Fetching all notes and displaying it and rendering again when note gets updated
     useEffect(()=>{
+      if(localStorage.getItem('token')){
         noteContext.fetchAllNotes();
+      }
+      // eslint-disable-next-line
     },[note])
 return (
     <>
@@ -39,8 +42,7 @@ return (
       <div className='container' style={{color:"white",fontSize:"larger",textAlign:"center"}}>
       {noteContext.notearr.length===0 && "No data"}
       </div>
-    {
-        noteContext.notearr.map((ele)=>
+    { noteContext.notearr.length!==0 && noteContext.notearr.map((ele)=>
         <div className="col-md-4 my-2" key={ele._id}>
         <div className="card" style={{height:"150px",overflow:"hidden"}}>
         <div className="card-body">

@@ -30,13 +30,13 @@ route.post(("/createuser"),[body('email',"Should be a valid email").isEmail()], 
         }
         //creating jwt token
         const authToken = await jwt.sign(data,secretKey);
-        return res.status(200).send(authToken);
+        return res.status(200).send({token:authToken});
       } catch (error) {
         //Handling the error
         if (error.name === "ValidationError") {
-          return res.status(400).send(error.message);
+          return res.status(400).send({error:error.message});
         }
-        res.status(500).send(error.message);
+        res.status(500).send({error:error.message});
       }
 })
 
@@ -44,8 +44,9 @@ route.post(("/createuser"),[body('email',"Should be a valid email").isEmail()], 
 //Route 2 : Validating user /api/auth/login - no auth required
 route.post(("/login"),[body('email',"Should be a valid email").isEmail(),check('password',"Cannot be empty").not().isEmpty()],async (req,res)=>{
     const errors = validationResult(req);
+    let success = false;
     if(!errors.isEmpty()){
-        return res.status(400).send(errors);
+        return res.status(400).json({error:"User does not exists"});
     }
     try{
         const {email,password} = req.body;
@@ -66,8 +67,10 @@ route.post(("/login"),[body('email',"Should be a valid email").isEmail(),check('
             }
         }
         //creating jwt token
-        const authToken = await jwt.sign(data,secretKey);
-        res.status(200).send(authToken);
+        const authToken = jwt.sign(data,secretKey);
+        success = true;
+        const token={success,token:authToken};
+        res.status(200).send(token);
 
     }catch(error){
         console.error(error.message);

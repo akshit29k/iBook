@@ -6,15 +6,16 @@ const secretKey = process.env.SALT_KEY;
 //This method is for authentication of user using jwt token if the token is correct in the request header then it will provide you with user details other then error  
 const fetchUser= async (req,res,next) => {
     const token = req.header("auth-content");
+    const valError = {error:"Please authenticate with valid token"};
     if(!token){
-        return res.status(401).send("Please authenticate with valid token");
+        return res.status(401).send(valError);
     }
     try{
         const data = await jwt.verify(token,secretKey);
         req.user = data.userData;
         next();
     }catch(error){
-        return res.status(401).send("Please authenticate with valid token");
+        return res.status(401).send(valError);
     }
 }
 

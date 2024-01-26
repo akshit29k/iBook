@@ -1,10 +1,22 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import {
-    Link
+    Link,
+    useNavigate
   } from "react-router-dom";
+import Alert from './Alert';
+import { alertContext } from '../context/AlertContext'
 
 export default function Navbar() {
+  const alertCon = useContext(alertContext);
+  const {showLoginAlert} = alertCon;
+  let navigate = useNavigate();
+  const handleLogout = ()=>{
+    localStorage.removeItem('token');
+    navigate("/login-signup");
+    showLoginAlert("Logged-Out","danger");
+  }
   return (
+    <>
     <nav className="navbar navbar-expand-lg" style={{backgroundColor:"g#282c34"}}>
   <div className="container-fluid">
     <a className="navbar-brand text-white h1" href="/">iBook</a>
@@ -20,12 +32,15 @@ export default function Navbar() {
           <Link className="nav-link text-white h2" to="/about">About</Link>
         </li>
       </ul>
+      {!localStorage.getItem("token")?
       <form className="d-flex" role="search">
         <Link className="btn btn-outline-light  border-white" to="/login-signup" >Login/Signup</Link>
-      </form>
+      </form>:<button className="btn btn-outline-light border-white" onClick={handleLogout}>Logout</button>}
     </div>
   </div>
 </nav>
+    <Alert/>
+    </>
   )
 }
 
